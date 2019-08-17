@@ -3,9 +3,11 @@ package com.duanlu.router;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.AnimRes;
+import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
@@ -22,12 +24,14 @@ import java.util.ArrayList;
  * @createDate 2019/02/12 17:27
  * @updateDate 2019/02/12 17:27
  * @version V1.0.0
+ * @version V1.0.1 增加屏幕方向参数的传递.
  * @describe 页面跳转.
  ********************************/
 public class UiPage {
 
-    public static final String EXTRA_THEME_RES_ID = "extra_theme_res_id";//传递主题
-    public static final String EXTRA_TITLE = "extra_title";//传递标题
+    public static final String EXTRA_THEME_RES_ID = "extra_theme_res_id";//传递主题.
+    public static final String EXTRA_TITLE = "extra_title";//传递标题.
+    public static final String EXTRA_ORIENTATION = "extra_orientation";//传递屏幕方向.
     public static final String EXTRA_FRAGMENT_CLASS_NAME = "extra_fragment_class_name";
 
     private Fragment mFragmentV4;
@@ -161,6 +165,16 @@ public class UiPage {
      */
     public UiPage setTheme(@StyleRes int themResId) {
         mIntent.putExtra(EXTRA_THEME_RES_ID, themResId);
+        return this;
+    }
+
+    /**
+     * 设置屏幕方向.
+     *
+     * @param orientation {@link ActivityInfo#screenOrientation ActivityInfo.screenOrientation}.
+     */
+    public UiPage setOrientation(@IntRange(from = -2, to = 14) int orientation) {
+        mIntent.putExtra(EXTRA_ORIENTATION, orientation);
         return this;
     }
 
